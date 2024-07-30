@@ -26,10 +26,10 @@ const Register = () => {
             <div className="sunshine-container">
                 <div className="sunshine"></div>
             </div>
-            <div className="hero-content flex-col lg:flex-row-reverse animate-fade-in">
-                <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl transform transition duration-500 hover:scale-110 hover:shadow-3xl hover:rotate-1">
+            <div className="hero-content flex-col lg:flex-row-reverse ">
+                <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl transform transition duration-500 npm install firebase hover:shadow-3xl ">
                     <form onSubmit={handleSubmit} className="card-body p-8">
-                        <h2 className="text-3xl font-bold text-center mb-6 text-gradient">Sign In</h2>
+                        <h2 className="text-3xl font-bold text-center mb-6 text-gradient">Sign Up</h2>
                         <div className="form-control mb-4">
                             <label className="label">
                                 <span className="label-text text-lg">Name</span>

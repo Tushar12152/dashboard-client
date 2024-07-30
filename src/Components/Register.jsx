@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import { BsEyeFill, BsEyeSlash } from 'react-icons/bs';
 import './globals.css'; // Import the CSS file
+import useAuth from '../Hooks/useAuth';
 
 const Register = () => {
     const [visible, setVisible] = useState(true);
+    const {createUser,loading}=useAuth()
 
 
-    const handleSubmit=e=>{
+    const handleSubmit=async e=>{
         e.preventDefault()
 
         const name=e.target.name.value;
@@ -15,7 +17,10 @@ const Register = () => {
         const photo=e.target.photo.value;
         const nid=e.target.nid.value;
 
-        console.log(name,email,password,photo,nid)
+        // console.log(name,email,password,photo,nid)
+
+        const result= await createUser(email,password)
+        console.log(result.user)
     }
 
 
@@ -47,7 +52,7 @@ const Register = () => {
                                 <span className="label-text text-lg">Password</span>
                             </label>
                             <input name='password' type={visible ? "password" : "text"} placeholder="Password" className="input input-bordered border-2 border-gray-300 w-full transition duration-300 ease-in-out hover:border-blue-500 focus:border-blue-500" required />
-                            <span onClick={() => setVisible(!visible)} className="absolute top-3 right-2 cursor-pointer text-gray-600 hover:text-blue-600 transition duration-300 ease-in-out">
+                            <span onClick={() => setVisible(!visible)} className="absolute top-14 right-2 cursor-pointer text-gray-600 hover:text-blue-600 transition duration-300 ease-in-out">
                                 {visible ? <BsEyeFill size={20} /> : <BsEyeSlash size={20} />}
                             </span>
                         </div>
@@ -64,8 +69,8 @@ const Register = () => {
                             <input name='nid' type="text" placeholder="NID Number" className="input input-bordered border-2 border-gray-300 transition duration-300 ease-in-out hover:border-blue-500 focus:border-blue-500" required />
                         </div>
                         <div className="form-control mt-6">
-                            <button className="btn btn-primary bg-blue-600 hover:bg-blue-700 transition duration-300 ease-in-out text-white font-semibold py-2 px-4 rounded-lg w-full shadow-md hover:shadow-lg">
-                            Register
+                            <button className={ `${loading?'bg-red-400':'bg-blue-400'} "btn btn-primary  hover:bg-blue-700 transition duration-300 ease-in-out text-white font-semibold py-2 px-4 rounded-lg w-full shadow-md hover:shadow-lg"`}>
+                                 {loading? '.....': " Register"}
                             </button>
                         </div>
                     </form>

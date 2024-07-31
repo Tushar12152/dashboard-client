@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { BsEyeFill, BsEyeSlash } from 'react-icons/bs';
 import './globals.css'; // Import the CSS file
 import useAuth from '../Hooks/useAuth';
+import toast from 'react-hot-toast';
 
 const Register = () => {
     const [visible, setVisible] = useState(true);
@@ -20,7 +21,9 @@ const Register = () => {
         // console.log(name,email,password,photo,nid)
 
         const result= await createUser(email,password)
-        console.log(result.user)
+        if(result.user){
+            toast.success('registration completed.')
+        }
     }
 
 

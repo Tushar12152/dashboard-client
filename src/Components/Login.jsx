@@ -1,10 +1,13 @@
 import { useState, useEffect } from 'react';
 import { BsEyeFill, BsEyeSlash } from 'react-icons/bs';
 import './globals.css'; // Import the CSS file
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import useAuth from '../Hooks/useAuth';
 
 const Login = () => {
     const [visible, setVisible] = useState(true);
+    const {login}=useAuth()
+    const navigate= useNavigate()
 
     useEffect(() => {
         // Create raindrops dynamically when the component mounts
@@ -38,13 +41,22 @@ const Login = () => {
     }, []);
 
 
-    const handleSubmit=e=>{
+    const handleSubmit=async e=>{
         e.preventDefault()
 
         const email= e.target.email.value;
         const password= e.target.password.value;
 
-        console.log(email,password)
+        // console.log(email,password)
+       const signin=await login(email,password)
+    //    console.log(signin.user)
+    if(signin?.user){
+        navigate('/dashboard')
+    }
+
+
+    
+
     }
 
 

@@ -3,28 +3,54 @@ import { BsEyeFill, BsEyeSlash } from 'react-icons/bs';
 import './globals.css'; // Import the CSS file
 import useAuth from '../Hooks/useAuth';
 import toast from 'react-hot-toast';
+import { imageUpload } from '../APIS/ImageUpload';
+
 
 const Register = () => {
     const [visible, setVisible] = useState(true);
     const {createUser,loading}=useAuth()
 
 
-    const handleSubmit=async e=>{
-        e.preventDefault()
-
-        const name=e.target.name.value;
-        const email=e.target.email.value;
-        const password=e.target.password.value;
-        const photo=e.target.photo.value;
-        const nid=e.target.nid.value;
-
-        // console.log(name,email,password,photo,nid)
-
-        const result= await createUser(email,password)
-        if(result.user){
-            toast.success('registration completed.')
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const name = e.target.name.value;
+            const email = e.target.email.value;
+            const password = e.target.password.value;
+            const image = e.target.image.files[0];
+            const nid = e.target.nid.value;
+    
+            // Validate image file
+            if (!image) {
+                return toast.error('Please upload an image.');
+            }
+    
+            const imageUrl = await imageUpload(image);
+            const imageURL = imageUrl?.data?.display_url;
+            if (!imageURL) {
+                return toast.error('Failed to upload image.');
+            }
+    
+            const user = {
+                name,
+                email,
+                nid,
+                imageURL,
+                Role: 'user'
+            };
+    
+            console.log(user);
+    
+            const result = await createUser(email, password);
+            if (result.user) {
+                toast.success('Registration completed.');
+            }
+        } catch (error) {
+            console.error('Error during registration:', error);
+            toast.error('An error occurred. Please try again.');
         }
-    }
+    };
+    
 
 
 
@@ -63,7 +89,7 @@ const Register = () => {
                             <label className="label">
                                 <span className="label-text text-lg">Picture</span>
                             </label>
-                            <input name='photo' type="file" className="input input-bordered border-2 border-gray-300 transition duration-300 ease-in-out hover:border-blue-500 focus:border-blue-500" />
+                            <input name='image' type="file" className="input input-bordered border-2 border-gray-300 transition duration-300 ease-in-out hover:border-blue-500 focus:border-blue-500" />
                         </div>
                         <div className="form-control mb-4">
                             <label className="label">

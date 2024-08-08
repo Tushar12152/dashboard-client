@@ -5,6 +5,7 @@ import useAuth from '../Hooks/useAuth';
 import toast from 'react-hot-toast';
 import { imageUpload } from '../APIS/ImageUpload';
 import { Link, useNavigate } from 'react-router-dom';
+import useAxiosSecure from '../Hooks/useAxiosSecure';
 
 
 
@@ -12,6 +13,7 @@ const Register = () => {
     const [visible, setVisible] = useState(true);
     const { createUser, loading } = useAuth()
     const navigate = useNavigate()
+    const axiosSecure = useAxiosSecure()
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -46,11 +48,17 @@ const Register = () => {
             const result = await createUser(email, password);
             if (result.user) {
                 toast.success('Registration completed.');
-
-                console.log(user);
+                // console.log(user);
                 // data backend e jabe ekhan theke
-
+                const result =await axiosSecure.post('/users', user) 
+                console.log(result)
+                // if (result.data.insertedId) {
+                   
+                   
+                // }
+                
                 navigate('/')
+               
 
             }
         } catch (error) {
@@ -66,14 +74,14 @@ const Register = () => {
         <div className="min-h-screen flex items-center justify-center bg-black relative">
             {/* Full-page sunshine effect */}
             <div>
-               
+
                 <div className="sunshine-container">
                     <div className="sunshine"></div>
 
                 </div>
             </div>
             <div className="hero-content flex-col lg:flex-row-reverse ">
-         
+
                 <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl transform transition duration-500 npm install firebase hover:shadow-3xl ">
                     <form onSubmit={handleSubmit} className="card-body p-8">
                         <h2 className="text-3xl font-bold text-center mb-1 text-gradient">Sign Up</h2>

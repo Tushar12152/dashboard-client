@@ -47,17 +47,17 @@ const Register = () => {
 
             const result = await createUser(email, password);
             if (result.user) {
-                toast.success('Registration completed.');
+               
                 // console.log(user);
                 // data backend e jabe ekhan theke
                 const result =await axiosSecure.post('/users', user) 
-                console.log(result)
-                // if (result.data.insertedId) {
-                   
-                   
-                // }
+                // console.log(result)
+                if (result.data.insertedId) {
+                    toast.success('Registration completed.');
+                    navigate('/')
+                }
                 
-                navigate('/')
+                
                
 
             }

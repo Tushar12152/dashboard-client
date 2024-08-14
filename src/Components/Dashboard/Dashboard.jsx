@@ -1,10 +1,12 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
+import { useState } from "react";
 
 const Dashboard = () => {
 
+    const [open,setOpen]=useState(true)
     const {logout,user}=useAuth()
     const navigate=useNavigate()
 
@@ -23,13 +25,20 @@ const Dashboard = () => {
       }
     });
 
-    console.log(user?.email)
+    // console.log(user?.email)
 
-console.log(users)
+// console.log(users)
 
-const existingUser= users.find(users?.email===user?.email)
+const existingUser= users.find(use=>use?.email===user?.email)
 
-console.log(existingUser)
+// console.log(existingUser)
+
+
+// const handleOpen=()=>{
+
+// }
+
+
 
     return (
         <div>
@@ -47,15 +56,34 @@ console.log(existingUser)
 
 
                 </div>
-                <div className="bg-white col-span-10 pl-10">
-                    <div className="h-14 bg-gray-100 flex justify-between w-[95%]">
-                          <div></div>
-                          <div>
-                               <img className="w-14 h-14 rounded-full" src='https://i.ibb.co/ZWC97rH/blog-3.jpg' alt="" />
-                          </div>
-                    </div>
-                      <Outlet/>
-                </div>
+                <div className="bg-white col-span-10 pl-10 relative">
+  <div className="h-14 flex justify-between w-[95%]">
+    <div></div>
+    <div className="relative">
+      <img
+        onClick={() => setOpen(!open)}
+        className="w-14 h-14 rounded-full cursor-pointer p-2"
+        src={existingUser?.imageURL}
+        alt=""
+      />
+
+      {/* Dropdown */}
+      {open && (
+        <div className="absolute right-0 mt-2 w-36 bg-blue-300 rounded-lg shadow-lg z-10">
+          {/* Dropdown content here */}
+       <div> <Link className="p-2 text-center text-white">Profile</Link></div>
+       <div> <Link className="p-2 text-center text-white">Settings</Link></div>
+       <div> <Link className="p-2 text-center text-white">Logout</Link></div>
+       
+    
+        </div>
+      )}
+    </div>
+  </div>
+
+  <Outlet />
+</div>
+
             </div>
         </div>
     );

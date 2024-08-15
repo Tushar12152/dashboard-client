@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const Dashboard = () => {
 
-    const [open,setOpen]=useState(true)
+    const [open,setOpen]=useState(false)
     const {logout,user}=useAuth()
     const navigate=useNavigate()
 
@@ -50,7 +50,7 @@ const existingUser= users.find(use=>use?.email===user?.email)
 
 
                      <div className="border-t-2  mt-10">
-                           <button className='text-center hover:bg-gray-100 w-full  p-1  rounded-lg mt-5 text-white hover:text-black ' onClick={handleSignout}>Log out</button>
+                           <button className='text-center hover:bg-gray-100 w-full  p-1  rounded-lg mt-5 text-white hover:text-black ' >...............</button>
                      </div>
 
 
@@ -69,11 +69,11 @@ const existingUser= users.find(use=>use?.email===user?.email)
 
       {/* Dropdown */}
       {open && (
-        <div className="absolute right-0 mt-2 w-36 bg-blue-300 rounded-lg shadow-lg z-10">
+        <div className="absolute right-0 mt-2 w-36 bg-blue-300 rounded-lg shadow-lg z-10 p-5">
           {/* Dropdown content here */}
-       <div> <Link className="p-2 text-center text-white">Profile</Link></div>
-       <div> <Link className="p-2 text-center text-white">Settings</Link></div>
-       <div> <Link className="p-2 text-center text-white">Logout</Link></div>
+       <div className="hover:bg-gray-300 text-center rounded-lg"> <Link className="p-2 mb-2 text-center text-white">Profile</Link></div>
+       <div className="hover:bg-gray-300 text-center rounded-lg"> <Link className="p-2 mb-2 text-center text-white">Settings</Link></div>
+       <div className="hover:bg-gray-300 text-center rounded-lg" onClick={handleSignout}> <Link className="p-2 mb-2 text-center text-white">Logout</Link></div>
        
     
         </div>

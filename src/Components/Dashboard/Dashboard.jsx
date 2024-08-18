@@ -31,7 +31,7 @@ const Dashboard = () => {
 
 const existingUser= users.find(use=>use?.email===user?.email)
 
-// console.log(existingUser)
+console.log(existingUser)
 
 
 // const handleOpen=()=>{
@@ -42,6 +42,8 @@ const existingUser= users.find(use=>use?.email===user?.email)
 
     return (
         <div>
+
+
             <div className="grid grid-cols-12 ">
                 <div className="bg-blue-300 h-screen col-span-2">
                    {/* Dashboards all routs */}
@@ -85,6 +87,8 @@ const existingUser= users.find(use=>use?.email===user?.email)
 </div>
 
             </div>
+
+
         </div>
     );
 };

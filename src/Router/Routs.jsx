@@ -5,6 +5,7 @@ import Register from "../Components/Register";
 import Dashboard from "../Components/Dashboard/Dashboard";
 import DashHome from "../Components/Dashboard/DashHome";
 import Users from "../Components/Dashboard/Users";
+import UsersRequest from "../Components/Dashboard/UsersRequest";
 
 const Routs = createBrowserRouter([
     {
@@ -32,7 +33,11 @@ const Routs = createBrowserRouter([
             {
                 path: '/dashboard/users',
                 element: <Users/>
-            }
+            },
+            {
+                path: '/dashboard/usersRequest',
+                element: <UsersRequest/>
+            },
         ]
     }
 ])

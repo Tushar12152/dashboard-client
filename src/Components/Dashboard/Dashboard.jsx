@@ -49,6 +49,17 @@ console.log(existingUser)
                    {/* Dashboards all routs */}
 
 
+                        {
+                          existingUser?.Role=="admin"? <div className="py-5">
+                                  <div className="hover:bg-gray-300 text-center rounded-lg mb-2"> <Link to='/dashboard/usersRequest' className="p-2 mb-2 text-center text-white">Users request</Link></div>
+                          </div>
+                          : 
+
+                          <div>
+                             user
+                          </div>
+                        }
+
 
 
                      <div className="border-t-2  mt-10">

@@ -2,13 +2,15 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useAuth from "../../Hooks/useAuth";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 const UsersRequest = () => {
 
   const {user}= useAuth()
     const axiosSecure = useAxiosSecure();
     const [aprove,setAprove]=useState(false)
-    const { data: users = [] } = useQuery({
+
+    const { data: users = [],refetch } = useQuery({
       queryKey: ['user'],
       queryFn: async () => {
         const res = await axiosSecure.get(`/users`)
@@ -26,13 +28,30 @@ const currentUser=user?.email
 
 
     const handleRole=async(id)=>{
+
+      const user = users.find(user=> user?._id==id)
+      
+      // console.log(user)
+
+      const {email, imageURL, name,  nid,  _id } =user
+      await setAprove(!aprove)
+      // console.log(id)
+
+      const updatedUser= {
+        email, imageURL, name,  nid,  _id, Role: aprove? "approved":"user" }
+
+      // console.log(updatedUser)
        
-      setAprove(!aprove)
- console.log(id)
+    
 
 
-      const res=await axiosSecure.patch(`/users/${id}`,)
+      const res=await axiosSecure.patch(`/users/${id}`,updatedUser)
          console.log(res.data.modifiedCount);
+
+         if(res.data.modifiedCount>0){
+            toast.success(`Already ${user?.Role=="approved"?"Blocked":"approved"} this user`)
+            refetch()
+         }
    
     }
 
@@ -78,7 +97,7 @@ const currentUser=user?.email
                             <td>{user?.email}</td>
                             <td>{user?.nid}</td>
                             <th>
-                              <button onClick={handleRole(user?._id)} className="btn btn-ghost btn-xs">{user?.Role}</button>
+                              <button onClick={()=>handleRole(user?._id)} className="btn btn-ghost btn-xs">{user?.Role}</button>
                             </th>
                           </tr>)
                       }

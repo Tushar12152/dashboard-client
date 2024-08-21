@@ -1,9 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import useAuth from "../../Hooks/useAuth";
 import { useState } from "react";
 
 const UsersRequest = () => {
 
+  const {user}= useAuth()
     const axiosSecure = useAxiosSecure();
     const [aprove,setAprove]=useState(false)
     const { data: users = [] } = useQuery({
@@ -14,9 +16,29 @@ const UsersRequest = () => {
       }
     });
 
- 
+// console.log(user.email)
+const currentUser=user?.email
 
-console.log(users)
+  const withOutAdmin= users.filter(user=>user.email!==currentUser)
+
+// console.log(users)
+
+
+
+    const handleRole=async(id)=>{
+       
+      setAprove(!aprove)
+ console.log(id)
+
+
+      const res=await axiosSecure.patch(`/users/${id}`,)
+         console.log(res.data.modifiedCount);
+   
+    }
+
+    // console.log('...',aprove)
+
+
 
     return (
         <div>
@@ -36,7 +58,7 @@ console.log(users)
                   <tbody>
                     {/* row 1 */}
                       {
-                        users.map(user=>  <tr key={user?._id}>
+                        withOutAdmin.map(user=>  <tr key={user?._id}>
                             
                             <td>
                               <div className="flex items-center gap-3">
@@ -56,7 +78,7 @@ console.log(users)
                             <td>{user?.email}</td>
                             <td>{user?.nid}</td>
                             <th>
-                              <button className="btn btn-ghost btn-xs">{user?.Role}</button>
+                              <button onClick={handleRole(user?._id)} className="btn btn-ghost btn-xs">{user?.Role}</button>
                             </th>
                           </tr>)
                       }

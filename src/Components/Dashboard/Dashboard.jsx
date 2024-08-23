@@ -6,102 +6,105 @@ import { useState } from "react";
 
 const Dashboard = () => {
 
-    const [open,setOpen]=useState(false)
-    const {logout,user}=useAuth()
-    const navigate=useNavigate()
+  const [open, setOpen] = useState(false)
+  const { logout, user } = useAuth()
+  const navigate = useNavigate()
 
-    const handleSignout=()=>{
-         logout()
-         navigate('/')
+  const handleSignout = () => {
+    logout()
+    navigate('/')
+  }
+
+  const axiosSecure = useAxiosSecure();
+
+  const { data: users = [] } = useQuery({
+    queryKey: ['user'],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/users`)
+      return res.data
     }
+  });
 
-    const axiosSecure = useAxiosSecure();
+  // console.log(user?.email)
 
-    const { data: users = [] } = useQuery({
-      queryKey: ['user'],
-      queryFn: async () => {
-        const res = await axiosSecure.get(`/users`)
-        return res.data
-      }
-    });
+  // console.log(users)
 
-    // console.log(user?.email)
+  const existingUser = users.find(use => use?.email === user?.email)
 
-// console.log(users)
-
-const existingUser= users.find(use=>use?.email===user?.email)
-
-console.log(existingUser)
+  // console.log(existingUser)
 
 
-// const handleOpen=()=>{
+  // const handleOpen=()=>{
 
-// }
+  // }
 
 
 
-    return (
-        <div>
+  return (
+    <div>
 
 
-            <div className="grid grid-cols-12 ">
-                <div className="bg-blue-300 h-screen col-span-2">
-                   {/* Dashboards all routs */}
+      <div className="grid grid-cols-12 ">
+        <div className="bg-blue-300 h-screen col-span-2">
+          {/* Dashboards all routs */}
 
 
-                        {
-                          existingUser?.Role=="admin"? <div className="py-5">
-                                  <div className="hover:bg-gray-300 text-center rounded-lg mb-2"> <Link to='/dashboard/usersRequest' className="p-2 mb-2 text-center text-white">Users request</Link></div>
-                          </div>
-                          : 
+          {
+            existingUser?.Role == "admin" ? <div className="py-5">
+              <div className="hover:bg-gray-300 text-center rounded-lg mb-2"> <Link to='/dashboard/usersRequest' className="p-2 mb-2 text-center text-white">Users request</Link></div>
+              <div className="hover:bg-gray-300 text-center rounded-lg mb-2"> <Link to='/dashboard/transection' className="p-2 mb-2 text-center text-white">All Transections</Link></div>
+            </div>
+              :
 
-                          <div>
-                             user
-                          </div>
-                        }
+              <div>
+                {
+                    
+                }
+              </div>
+          }
 
 
 
-                     <div className="border-t-2  mt-10">
-                           <button className='text-center hover:bg-gray-100 w-full  p-1  rounded-lg mt-5 text-white hover:text-black ' >...............</button>
-                     </div>
+          <div className="border-t-2  mt-10">
+            <button className='text-center hover:bg-gray-100 w-full  p-1  rounded-lg mt-5 text-white hover:text-black ' >...............</button>
+          </div>
 
+
+
+        </div>
+        <div className="bg-white col-span-10 pl-10 relative">
+          <div className="h-14 flex justify-between w-[95%]">
+            <div></div>
+            <div className="relative">
+              <img
+                onClick={() => setOpen(!open)}
+                className="w-14 h-14 rounded-full cursor-pointer p-2"
+                src={existingUser?.imageURL}
+                alt=""
+              />
+
+              {/* Dropdown */}
+              {open && (
+                <div className="absolute right-0 mt-2 w-36 bg-blue-300 rounded-lg shadow-lg z-10 p-5">
+                  {/* Dropdown content here */}
+                  <div className="hover:bg-gray-300 text-center rounded-lg"> <Link className="p-2 mb-2 text-center text-white">Profile</Link></div>
+                  <div className="hover:bg-gray-300 text-center rounded-lg"> <Link className="p-2 mb-2 text-center text-white">Settings</Link></div>
+                  <div className="hover:bg-gray-300 text-center rounded-lg" onClick={handleSignout}> <Link className="p-2 mb-2 text-center text-white">Logout</Link></div>
 
 
                 </div>
-                <div className="bg-white col-span-10 pl-10 relative">
-  <div className="h-14 flex justify-between w-[95%]">
-    <div></div>
-    <div className="relative">
-      <img
-        onClick={() => setOpen(!open)}
-        className="w-14 h-14 rounded-full cursor-pointer p-2"
-        src={existingUser?.imageURL}
-        alt=""
-      />
-
-      {/* Dropdown */}
-      {open && (
-        <div className="absolute right-0 mt-2 w-36 bg-blue-300 rounded-lg shadow-lg z-10 p-5">
-          {/* Dropdown content here */}
-       <div className="hover:bg-gray-300 text-center rounded-lg"> <Link className="p-2 mb-2 text-center text-white">Profile</Link></div>
-       <div className="hover:bg-gray-300 text-center rounded-lg"> <Link className="p-2 mb-2 text-center text-white">Settings</Link></div>
-       <div className="hover:bg-gray-300 text-center rounded-lg" onClick={handleSignout}> <Link className="p-2 mb-2 text-center text-white">Logout</Link></div>
-       
-    
-        </div>
-      )}
-    </div>
-  </div>
-
-  <Outlet />
-</div>
-
+              )}
             </div>
+          </div>
 
-
+          <Outlet />
         </div>
-    );
+
+      </div>
+
+
+    </div>
+  );
 };
 
 export default Dashboard;

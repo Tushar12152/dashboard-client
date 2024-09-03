@@ -31,7 +31,7 @@ const Dashboard = () => {
 
   const existingUser = users.find(use => use?.email === user?.email)
 
-  // console.log(existingUser)
+  console.log(existingUser)
 
 
   // const handleOpen=()=>{
@@ -58,7 +58,11 @@ const Dashboard = () => {
 
               <div>
                 {
-                    
+                    existingUser?.Role == "user" ? <div> 
+                            <div className="hover:bg-gray-300 text-center rounded-lg my-2"> <Link to='/dashboard/subscriptions' className="p-2 mb-2 text-center text-white">Subscriptions</Link></div>
+                       </div> : 
+                       
+                       <div>  aprroved user </div>
                 }
               </div>
           }

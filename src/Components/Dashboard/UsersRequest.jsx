@@ -36,7 +36,7 @@ const currentUser=user?.email
       const {email, imageURL, name,  nid,  _id } =user
       await setAprove(!aprove)
       // console.log(id)
-
+                                                
       const updatedUser= {
         email, imageURL, name,  nid,  _id, Role: aprove? "approved":"user" }
 

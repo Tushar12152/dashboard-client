@@ -2,15 +2,19 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const TransectionNo = () => {
+
+  const axiosSecure = useAxiosSecure();  
+
+
     const { data: transections = [] } = useQuery({
-        queryKey: ['transections'],
+        queryKey: ['transection'],
         queryFn: async () => {
-          const res = await useAxiosSecure.get(`/transections`);
+          const res = await axiosSecure.get(`/transections`);
           return res.data;
         }
       });
 
-      console.log('g', transections)
+      console.log('..', transections)
 
     return (
         <div>
@@ -19,34 +23,23 @@ const TransectionNo = () => {
     {/* head */}
     <thead>
       <tr>
-        <th></th>
-        <th>Name</th>
-        <th>Job</th>
-        <th>Favorite Color</th>
+       
+     
+        <th>Email</th>
+        <th>Tramsection No.</th>
       </tr>
     </thead>
     <tbody>
-      {/* row 1 */}
-      <tr>
-        <th>1</th>
-        <td>Cy Ganderton</td>
-        <td>Quality Control Specialist</td>
-        <td>Blue</td>
-      </tr>
-      {/* row 2 */}
-      <tr>
-        <th>2</th>
-        <td>Hart Hagerty</td>
-        <td>Desktop Support Technician</td>
-        <td>Purple</td>
-      </tr>
-      {/* row 3 */}
-      <tr>
-        <th>3</th>
-        <td>Brice Swyre</td>
-        <td>Tax Accountant</td>
-        <td>Red</td>
-      </tr>
+      {
+        transections.map(transection=> <tr key={transection?._id}>
+       
+          
+          <td>{transection?.email}</td>
+          <td>{transection?.transection}</td>
+        </tr>)
+      }
+      
+     
     </tbody>
   </table>
 </div>

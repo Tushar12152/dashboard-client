@@ -1,42 +1,3 @@
-
-// const DashHome = () => {
-//     return (
-//         <div>
-//              dash board Home page for every one with a designed landing page.
-
-//              <div className="grid grid-cols-3 gap-6 mt-10">
-//             <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-//               <p className="text-lg font-semibold text-gray-800">TVL 2022</p>
-//               <p className="text-4xl font-bold text-green-600">$43.35B</p>
-//               <p className="text-sm text-gray-400">+13%</p>
-//             </div>
-//             <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-//               <p className="text-lg font-semibold text-gray-800">Change (24H)</p>
-//               <p className="text-4xl font-bold text-red-600">-4.31%</p>
-//             </div>
-//             <div className="bg-gray-100 p-6 rounded-lg shadow-md">
-//               <p className="text-lg font-semibold text-gray-800">
-//                 Maker Dominance
-//               </p>
-//               <p className="text-4xl font-bold text-yellow-600">15.62%</p>
-//             </div>
-//           </div>
-
-//         </div>
-//     );
-// };
-
-// export default DashHome;
-
-
-
-
-
-
-
-
-
-
 import { Line, Pie } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
@@ -49,6 +10,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import Menu from './Menu';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, ArcElement, Title, Tooltip, Legend);
 
@@ -120,6 +82,14 @@ const DashHome = () => {
               <p className="text-4xl font-bold text-yellow-600">15.62%</p>
             </div>
           </div>
+
+
+
+            <div>
+               <Menu/>
+            </div>
+
+         
         </div>
 
         {/* Right side: Pie chart */}

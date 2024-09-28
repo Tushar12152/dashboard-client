@@ -61,7 +61,13 @@ const Dashboard = () => {
               </Link>
             </div>
           ) : (
-            <div>Approved User</div>
+            <div>
+               
+               <Link to="/dashboard/settings" className="text-white text-center">
+                Settings
+              </Link>
+
+            </div>
           )}
 
           {/* Sign Out Button */}

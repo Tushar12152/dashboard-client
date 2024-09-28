@@ -8,6 +8,7 @@ import Users from "../Components/Dashboard/Users";
 import UsersRequest from "../Components/Dashboard/UsersRequest";
 import TransectionNo from "../Components/Dashboard/TransectionNo";
 import Subscriptions from "../Components/Dashboard/Subscriptions";
+import Settings from "../Components/Dashboard/Settings";
 
 const Routs = createBrowserRouter([
     {
@@ -47,6 +48,10 @@ const Routs = createBrowserRouter([
             {
                 path: '/dashboard/subscriptions',
                 element: <Subscriptions/>
+            },
+            {
+                path: '/dashboard/settings',
+                element: <Settings/>
             },
         ]
     }
